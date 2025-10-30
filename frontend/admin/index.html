@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理后台 - LocalGame</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-page">
+    <!-- 顶部导航 -->
+    <nav class="admin-nav">
+        <div class="nav-left">
+            <button class="nav-item nav-btn active" data-type="announcement">公告</button>
+            <button class="nav-item nav-btn" data-type="bulletin">通告</button>
+            <button class="nav-item nav-btn" data-type="game">游戏</button>
+            <button class="nav-item nav-btn" data-type="chat">留言</button>
+        </div>
+        <button id="logout-btn">退出</button>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="admin-main">
+        <div class="main-header">
+            <h2 id="page-title">公告列表</h2>
+            <button id="new-btn" class="btn-new">+ 新建</button>
+        </div>
+        
+        <div id="content-list" class="content-list"></div>
+    </main>
+
+    <!-- 编辑器弹窗 -->
+    <div class="editor-overlay" id="editor-overlay">
+        <div class="editor-box">
+            <div class="editor-header">
+                <h3 id="editor-title-text">编辑</h3>
+            </div>
+            
+            <div class="editor-body">
+                <div class="form-group">
+                    <label class="form-label">标题 *</label>
+                    <input type="text" id="editor-title" class="input" placeholder="输入标题..." maxlength="200">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">内容 *</label>
+                    <textarea id="editor-content" class="textarea" placeholder="输入内容..." rows="10"></textarea>
+                </div>
+            </div>
+            
+            <div class="editor-footer">
+                <a href="#" id="cancel-btn">取消</a>
+                <a href="#" id="save-btn">保存</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/js/admin/admin.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,894 @@
+/* 可复用的组件样式 - Windows 98 风格 */
+
+/* 防止组件内容溢出 */
+* {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* ========== 公告弹窗（已移除重复样式，使用下方统一样式） ========== */
+
+/* ========== 空状态组件 ========== */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--frost-dim);
+}
+
+/* ========== 图片网格组件 ========== */
+.post-images-grid {
+    display: grid;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+/* 1张图片 - 较大显示 */
+.post-images-grid.grid-1 {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+}
+
+/* 2张图片 - 横向排列 */
+.post-images-grid.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* 3张图片 - 横向排列 */
+.post-images-grid.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* 4张及以上 - 9列网格（图片更小） */
+.post-images-grid.grid-4 {
+    grid-template-columns: repeat(9, 1fr);
+}
+
+.post-image-item {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.post-image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* 响应式：平板端 */
+@media (max-width: 768px) {
+    .post-images-grid.grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .post-images-grid.grid-4 {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .post-images-grid.grid-2,
+    .post-images-grid.grid-3,
+    .post-images-grid.grid-4 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    /* 移动端图片灯箱优化 */
+    .lightbox-image {
+        max-width: 100%;
+        max-height: 90%;
+    }
+    
+    /* 移动端按钮大小 */
+    .btn {
+        min-height: 44px;
+        padding: 0.6rem 1.2rem;
+    }
+    
+    /* 返回按钮更明显 */
+    .back-to-list {
+        font-size: 1rem;
+        padding: 0.8rem 0;
+    }
+}
+
+/* ========== 按钮组件 ========== */
+.btn {
+    padding: 0.4rem 1rem;
+    border-top: 2px solid var(--win98-white);
+    border-left: 2px solid var(--win98-white);
+    border-right: 2px solid var(--win98-black);
+    border-bottom: 2px solid var(--win98-black);
+    background-color: var(--win98-gray);
+    color: var(--win98-black);
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+    font-size: 0.93rem;
+    font-weight: normal;
+    cursor: pointer;
+    transition: none;
+    text-align: center;
+    display: inline-block;
+    outline: 1px solid transparent;
+    outline-offset: -3px;
+}
+
+.btn:hover {
+    background-color: var(--win98-light-gray);
+}
+
+.btn:active {
+    border-top: 2px solid var(--win98-black);
+    border-left: 2px solid var(--win98-black);
+    border-right: 2px solid var(--win98-white);
+    border-bottom: 2px solid var(--win98-white);
+}
+
+.btn:focus {
+    outline: 1px dotted var(--win98-black);
+    outline-offset: -3px;
+}
+
+.btn-primary {
+    border: 2px solid var(--win98-black);
+    outline: 1px dotted var(--win98-black);
+    outline-offset: -4px;
+}
+
+.btn-primary:hover {
+    background-color: var(--win98-light-gray);
+}
+
+.btn-sm {
+    padding: 0.2rem 0.7rem;
+    font-size: 0.86rem;
+}
+
+/* ========== 输入框组件 ========== */
+.input {
+    padding: 0.3rem 0.4rem;
+    border-top: 2px solid var(--win98-dark-gray);
+    border-left: 2px solid var(--win98-dark-gray);
+    border-right: 2px solid var(--win98-white);
+    border-bottom: 2px solid var(--win98-white);
+    background-color: var(--win98-white);
+    color: var(--win98-black);
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+    font-size: 0.93rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.input::placeholder {
+    color: var(--win98-dark-gray);
+}
+
+/* ========== 标签页组件 ========== */
+.tabs {
+    display: flex;
+    border-bottom: 2px solid var(--win98-gray);
+    background-color: var(--win98-gray);
+}
+
+.tab {
+    padding: 0.4rem 1rem;
+    border-top: 2px solid var(--win98-white);
+    border-left: 2px solid var(--win98-white);
+    border-right: 2px solid var(--win98-dark-gray);
+    border-bottom: none;
+    background-color: var(--win98-gray);
+    color: var(--win98-black);
+    cursor: pointer;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+    font-size: 0.93rem;
+    font-weight: normal;
+    margin-right: 2px;
+    transition: none;
+    user-select: none;
+}
+
+.tab:hover {
+    background-color: var(--win98-light-gray);
+}
+
+.tab.active {
+    background-color: var(--win98-white);
+    border-bottom: 2px solid var(--win98-white);
+    margin-bottom: -2px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ========== 页面头部组件 ========== */
+.page-header {
+    text-align: center;
+    padding: 0.86rem 0;
+    border-bottom: 2px solid var(--win98-dark-gray);
+    background-color: var(--win98-gray);
+}
+
+.page-header h1 {
+    font-size: 1.14rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+.page-header p {
+    margin: 0.57rem 0 0 0;
+    color: var(--win98-black);
+    font-size: 0.93rem;
+}
+
+/* ========== 容器组件 ========== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.7rem;
+}
+
+.box {
+    border-top: 2px solid var(--win98-white);
+    border-left: 2px solid var(--win98-white);
+    border-right: 2px solid var(--win98-dark-gray);
+    border-bottom: 2px solid var(--win98-dark-gray);
+    background-color: var(--win98-gray);
+    padding: 2px;
+    margin-bottom: 0.7rem;
+}
+
+.box-header {
+    padding: 0.3rem 0.57rem;
+    border: none;
+    background: var(--win98-blue);
+    color: var(--win98-white);
+    font-weight: bold;
+    font-size: 0.93rem;
+}
+
+.box-content {
+    padding: 0.57rem;
+    background-color: var(--win98-white);
+}
+
+/* ========== 表单组件 ========== */
+.form-group {
+    margin-bottom: 0.86rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: normal;
+    font-size: 0.93rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 0.57rem;
+    align-items: center;
+}
+
+/* ========== 工具类 ========== */
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-10 {
+    margin-top: 0.7rem;
+}
+
+.mb-10 {
+    margin-bottom: 0.7rem;
+}
+
+.p-10 {
+    padding: 0.7rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.gap-10 {
+    gap: 0.7rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ========== 公告模态框组件 ========== */
+.announcement-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.announcement-modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.announcement-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.announcement-modal-content {
+    position: relative;
+    z-index: 10;
+    background: var(--frost-bg);
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: modalSlideIn 0.3s ease;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.announcement-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: transparent;
+}
+
+.announcement-modal-header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--frost-deep);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.announcement-modal-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--frost-medium);
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.announcement-modal-close:hover {
+    color: var(--frost-deep);
+}
+
+.announcement-modal-body {
+    padding: 2rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    color: var(--frost-deep);
+    word-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+.announcement-modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.announcement-modal-body::-webkit-scrollbar-track {
+    background: var(--frost-light);
+}
+
+.announcement-modal-body::-webkit-scrollbar-thumb {
+    background: var(--frost-medium);
+    border-radius: 0;
+}
+
+.announcement-text {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    font-size: 1rem;
+    color: var(--frost-deep);
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    max-width: 100%;
+}
+
+.announcement-text:last-child {
+    margin-bottom: 0;
+}
+
+.announcement-image {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.announcement-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.announcement-image:last-child {
+    margin-bottom: 0;
+}
+
+.announcement-empty,
+.announcement-error {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--frost-dim);
+    font-size: 1.1rem;
+}
+
+.loading {
+    text-align: center;
+    color: var(--frost-dim);
+    font-size: 1rem;
+}
+
+.announcement-modal-footer {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    background: transparent;
+}
+
+.announcement-modal-footer .btn {
+    min-width: 120px;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border: 2px solid var(--frost-medium);
+    background: var(--frost-bg);
+    color: var(--frost-deep);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.announcement-modal-footer .btn:hover {
+    background: var(--frost-accent);
+    color: white;
+    border-color: var(--frost-accent);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .announcement-modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+    
+    .announcement-modal-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .announcement-modal-body {
+        padding: 1.5rem;
+    }
+}
+
+/* ========== Toast 提示组件（静默弹窗） ========== */
+.toast-container {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    pointer-events: none;
+}
+
+.toast {
+    background: transparent;
+    color: var(--frost-dim);
+    padding: 12px 24px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.4);
+    
+    /* 初始状态（隐藏） */
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+/* 显示状态 */
+.toast.show {
+    opacity: 1;
+}
+
+/* ========== 图片灯箱 ========== */
+.image-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.lightbox-image {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+}
+
+/* ========== 游戏卡片网格 ========== */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    gap: 8px;
+    padding: 20px;
+}
+
+.game-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--frost-light);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-card:hover {
+    border-color: var(--frost-accent);
+    box-shadow: 0 2px 8px rgba(123, 163, 184, 0.3);
+}
+
+.game-thumbnail {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.game-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.game-info {
+    padding: 6px;
+    font-size: 11px;
+    line-height: 1.3;
+}
+
+.game-title {
+    font-weight: 600;
+    color: var(--frost-deep);
+    margin-bottom: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.game-author {
+    color: var(--frost-dim);
+    font-size: 10px;
+    margin-bottom: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.game-desc {
+    color: var(--frost-medium);
+    font-size: 10px;
+    line-height: 1.2;
+    max-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* 响应式 */
+/* 平板端：一行9个 */
+@media (max-width: 1024px) {
+    .game-grid {
+        grid-template-columns: repeat(9, 1fr);
+    }
+}
+
+/* 手机端：一行6个 */
+@media (max-width: 768px) {
+    .game-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+/* ========== 游戏详情页样式 ========== */
+.game-detail {
+    padding: 20px;
+}
+
+.game-detail-header h2 {
+    margin: 0 0 10px 0;
+    color: var(--frost-deep);
+}
+
+.game-meta {
+    color: var(--frost-dim);
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.game-meta span {
+    margin-right: 20px;
+}
+
+.game-description {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.5);
+    border-left: 3px solid var(--frost-accent);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.game-preview {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.game-preview-image {
+    max-width: 400px;
+    width: 100%;
+    border: 2px solid var(--frost-light);
+}
+
+.play-game-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 30px;
+    background: var(--frost-accent);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.play-game-btn:hover {
+    background: var(--frost-deep);
+}
+
+.game-actions {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--frost-light);
+}
+
+.game-actions a {
+    margin-right: 15px;
+}
+
+/* ========== 我的游戏管理页面 ========== */
+.my-games-page {
+    padding: 20px;
+}
+
+.my-games-page h2 {
+    margin: 0 0 15px 0;
+    color: var(--frost-deep);
+}
+
+.page-actions {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--frost-light);
+}
+
+.page-actions a {
+    margin-right: 15px;
+}
+
+.my-games-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.my-game-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--frost-light);
+}
+
+.my-game-item .game-info h3 {
+    margin: 0 0 5px 0;
+    color: var(--frost-deep);
+    font-size: 16px;
+}
+
+.my-game-item .game-info p {
+    margin: 3px 0;
+    color: var(--frost-dim);
+    font-size: 13px;
+}
+
+.my-game-item .status {
+    font-weight: 600;
+}
+
+.my-game-item .status.published {
+    color: green;
+}
+
+.my-game-item .status.draft {
+    color: orange;
+}
+
+.game-item-actions a {
+    margin-left: 10px;
+}
+
+/* ========== 游戏表单样式 ========== */
+.game-form {
+    padding: 20px;
+    max-width: 600px;
+}
+
+.game-form h2 {
+    margin: 0 0 20px 0;
+    color: var(--frost-deep);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--frost-deep);
+    font-weight: 600;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--frost-light);
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    color: var(--frost-deep);
+}
+
+.form-group input[type="file"] {
+    padding: 8px;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-group small {
+    display: block;
+    margin-top: 5px;
+    color: var(--frost-dim);
+    font-size: 12px;
+}
+
+.form-actions {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--frost-light);
+}
+
+.form-actions a {
+    margin-right: 15px;
+}
+
+.form-note {
+    margin-top: 15px;
+    color: var(--frost-dim);
+    font-size: 13px;
+}
+
+/* ========== 确认删除状态 ========== */
+.action-link.confirming {
+    background: #c00;
+    color: white;
+    padding: 2px 8px;
+}
+
+/* ========== 用户认证界面 ========== */
+.auth-container {
+    padding: 20px;
+    max-width: 500px;
+}
+
+.auth-container h2 {
+    margin: 0 0 20px 0;
+    color: var(--frost-deep);
+}
+
+.auth-tabs {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--frost-light);
+}
+
+.auth-tab {
+    margin-right: 10px;
+    color: var(--frost-dim);
+    text-decoration: none;
+}
+
+.auth-tab.active {
+    color: var(--frost-accent);
+    font-weight: 600;
+}
+
+.auth-form {
+    margin-top: 20px;
+}

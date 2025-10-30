@@ -1,0 +1,461 @@
+/* 管理后台样式 - 极简无边框设计 */
+
+/* 登录页面 */
+.login-page {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-wrapper {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+.login-container {
+    background: var(--frost-bg-solid);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem 2rem;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+}
+
+.login-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--frost-deep);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: none;
+    padding: 0;
+}
+
+.login-header p {
+    margin: 0.8rem 0 0 0;
+    font-size: 0.95rem;
+    color: var(--frost-dim);
+    letter-spacing: 1px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-label {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--frost-deep);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.input {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--frost-deep);
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 1);
+}
+
+.btn {
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+    background: transparent;
+    color: var(--frost-deep);
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    color: var(--frost-accent);
+}
+
+.error-message,
+.success-message {
+    padding: 0.8rem;
+    background: transparent;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    display: none;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.error-message {
+    color: #c00;
+}
+
+.success-message {
+    color: var(--frost-deep);
+}
+
+.error-message.show,
+.success-message.show {
+    display: block;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+}
+
+.login-footer a {
+    color: var(--frost-accent);
+    font-size: 0.9rem;
+}
+
+/* 管理后台页面 */
+.admin-page {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 顶部导航 - 纯文本链接 */
+.admin-nav {
+    background: var(--frost-bg-solid);
+    backdrop-filter: blur(10px);
+    padding: var(--content-padding);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.nav-left {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-btn {
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: var(--frost-dim);
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+    color: var(--frost-deep);
+}
+
+.nav-btn.active {
+    color: var(--frost-deep);
+    font-weight: 700;
+}
+
+#logout-btn {
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: #c00;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+#logout-btn:hover {
+    opacity: 0.7;
+}
+
+/* 主内容区 */
+.admin-main {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--content-padding);
+    background: var(--frost-bg);
+    backdrop-filter: blur(10px);
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--section-gap);
+    padding: var(--content-padding) 0;
+}
+
+.main-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--frost-deep);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.btn-new {
+    padding: 0;
+    background: transparent;
+    color: var(--frost-accent);
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-new:hover {
+    color: var(--frost-deep);
+}
+
+/* 内容列表 - 纯文本 */
+.content-list {
+    background: transparent;
+}
+
+.empty {
+    padding: 4rem 2rem;
+    text-align: center;
+    color: var(--frost-dim);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.post-item {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--content-padding) 0;
+    border-bottom: 1px solid rgba(123, 163, 184, 0.1);
+    transition: opacity 0.2s ease;
+}
+
+.post-item:last-child {
+    border-bottom: none;
+}
+
+.post-item:hover {
+    opacity: 0.8;
+}
+
+.post-info {
+    flex: 1;
+}
+
+.post-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--frost-deep);
+}
+
+.post-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    color: var(--frost-dim);
+}
+
+.status {
+    padding: 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status.draft {
+    color: var(--frost-dim);
+}
+
+.status.published {
+    color: var(--frost-accent);
+}
+
+.post-content {
+    color: var(--frost-deep);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+.post-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.action-link {
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: var(--frost-accent);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.action-link:hover {
+    color: var(--frost-deep);
+}
+
+.action-link.danger {
+    color: #c00;
+}
+
+.action-link.danger:hover {
+    opacity: 0.7;
+}
+
+/* 编辑器弹窗 */
+.editor-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(44, 74, 92, 0.9);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+}
+
+.editor-overlay.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editor-box {
+    background: var(--frost-bg-solid);
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.editor-header {
+    padding: var(--content-padding);
+    background: var(--frost-bg-solid);
+}
+
+.editor-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--frost-deep);
+}
+
+.editor-body {
+    padding: var(--content-padding);
+    background: var(--frost-bg);
+}
+
+.form-group {
+    margin-bottom: var(--section-gap);
+}
+
+.textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    font-size: 0.95rem;
+    resize: vertical;
+    min-height: 200px;
+    font-family: inherit;
+    background: white;
+    color: var(--frost-deep);
+    line-height: 1.6;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.textarea:focus {
+    outline: none;
+}
+
+.editor-footer {
+    padding: var(--content-padding);
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+    background: var(--frost-bg-solid);
+}
+
+.editor-footer a {
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: var(--frost-accent);
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.editor-footer a:hover {
+    color: var(--frost-deep);
+}
+
+.editor-footer a#cancel-btn {
+    color: var(--frost-dim);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .main-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+
+    .post-item {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .post-actions {
+        justify-content: flex-start;
+    }
+    
+    .nav-left {
+        gap: 1rem;
+    }
+}

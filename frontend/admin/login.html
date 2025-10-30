@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理员登录 - LocalGame</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="login-page">
+    <div class="login-wrapper">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>管理员登录</h1>
+                <p>LocalGame 管理后台</p>
+            </div>
+
+            <div id="error-message" class="error-message"></div>
+            <div id="success-message" class="success-message"></div>
+
+            <form class="login-form" id="login-form">
+                <div class="form-group">
+                    <label class="form-label" for="email">邮箱</label>
+                    <input 
+                        type="email" 
+                        class="input" 
+                        id="email" 
+                        name="email"
+                        placeholder="请输入管理员邮箱"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+
+                <div class="form-group" id="password-section">
+                    <label class="form-label" for="password">验证码</label>
+                    <input 
+                        type="text" 
+                        class="input" 
+                        id="code" 
+                        name="code"
+                        placeholder="输入6位验证码"
+                        maxlength="6"
+                        style="display: none;"
+                    >
+                </div>
+
+                <button type="button" class="btn" id="send-code-btn">
+                    发送验证码
+                </button>
+
+                <button type="submit" class="btn" id="login-btn" style="display: none;">
+                    登录
+                </button>
+
+                <div class="login-footer">
+                    <a href="/">返回首页</a>
+                    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--frost-dim);">
+                        提示：验证码将发送到您的邮箱
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="/js/admin/login.js"></script>
+</body>
+</html>
+

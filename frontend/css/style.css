@@ -1,0 +1,174 @@
+/* 冰霜粗野主义 - 基于背景图的艺术设计 */
+:root {
+    /* 从背景图提取的冷色调 */
+    --frost-deep: #2c4a5c;         /* 深蓝灰 - 主文字 */
+    --frost-medium: #5a7a8c;       /* 中蓝灰 - 边框 */
+    --frost-accent: #7ba3b8;       /* 青蓝 - 强调 */
+    --frost-light: #b8d4e0;        /* 浅蓝灰 - 次要 */
+    --frost-dim: #8fa3b0;          /* 灰蓝 - 暗淡文字 */
+    --frost-bg: rgba(255, 255, 255, 0.7);  /* 半透明白色 */
+    --frost-bg-solid: rgba(255, 255, 255, 0.85);  /* 不透明白色 */
+    
+    /* 统一间距系统 */
+    --content-padding: 1.2rem;
+    --content-gap: 0.8rem;
+    --section-gap: 1.8rem;
+}
+
+html {
+    background: url('../images/background.webp') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-size: 16px;
+    color: var(--frost-deep);
+    line-height: 1.6;
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+body {
+    background: transparent;
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+::selection {
+    background-color: var(--frost-accent);
+    color: white;
+}
+
+/* 隐藏滚动条但保持可滚动 */
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+/* Firefox 隐藏滚动条 */
+* {
+    scrollbar-width: none;
+}
+
+/* IE/Edge 隐藏滚动条 */
+* {
+    -ms-overflow-style: none;
+}
+
+p {
+    text-align: left;
+    margin: 1rem 0;
+}
+
+/* 链接样式 */
+a {
+    color: var(--frost-accent);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+a:hover {
+    color: var(--frost-deep);
+    border-bottom: 2px solid var(--frost-accent);
+}
+
+a:visited {
+    color: var(--frost-dim);
+}
+
+/* ========== 冰霜按钮样式 ========== */
+.btn {
+    padding: 0.6rem 1.5rem;
+    background-color: var(--frost-bg);
+    color: var(--frost-deep);
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    
+    /* 简洁边框 */
+    border: 3px solid var(--frost-medium);
+    
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--frost-accent);
+    color: white;
+    border-color: var(--frost-accent);
+}
+
+.btn:active {
+    background-color: var(--frost-deep);
+    border-color: var(--frost-deep);
+    color: white;
+}
+
+/* 小尺寸按钮 */
+.btn-sm {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+/* 主要操作按钮 */
+.btn-primary {
+    background-color: var(--frost-accent);
+    border-color: var(--frost-accent);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--frost-deep);
+    border-color: var(--frost-deep);
+}
+
+/* ========== 标题样式 ========== */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--frost-deep);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 2rem 0 1rem 0;
+}
+
+h1 {
+    font-size: 2.8rem;
+    border-bottom: 4px solid var(--frost-medium);
+    padding-bottom: 0.8rem;
+    letter-spacing: 3px;
+}
+
+h2 {
+    font-size: 2.2rem;
+    border-bottom: 3px solid var(--frost-light);
+    padding-bottom: 0.6rem;
+}
+
+h3 {
+    font-size: 1.6rem;
+}
+
+/* ========== 面板/卡片样式 ========== */
+.panel {
+    background-color: var(--frost-bg);
+    border: 3px solid var(--frost-medium);
+    padding: var(--content-padding);
+    backdrop-filter: blur(5px);
+}
+
+.panel:hover {
+    border-color: var(--frost-accent);
+}

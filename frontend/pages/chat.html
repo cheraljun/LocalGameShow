@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言 - LocalGame</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/chat.css">
+</head>
+<body>
+    <div class="chat-wrapper">
+        <!-- 消息区域 -->
+        <div class="messages-container" id="messages">
+            <!-- 消息将通过 JS 动态添加 -->
+        </div>
+
+        <!-- 输入区域 -->
+        <div class="input-container">
+            <div class="input-item message-item">
+                <input 
+                    type="text" 
+                    class="message-input" 
+                    id="message-input" 
+                    placeholder="输入留言内容..."
+                    maxlength="500"
+                    autocomplete="off"
+                >
+            </div>
+            <div class="input-item send-item">
+                <button class="send-btn" id="send-btn">发送</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/js/pages/chat.js"></script>
+</body>
+</html>

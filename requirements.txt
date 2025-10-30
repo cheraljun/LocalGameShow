@@ -1,0 +1,1 @@
+pip install fastapi uvicorn[standard] pydantic python-multipart python-jose[cryptography] Pillow aiosmtplib

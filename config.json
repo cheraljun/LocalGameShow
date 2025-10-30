@@ -1,0 +1,13 @@
+{
+  "admin_email": "1773384983@qq.com",
+  "smtp_host": "smtp.qq.com",
+  "smtp_port": 465,
+  "smtp_password": "QQ邮箱授权码",
+  "smtp_use_ssl": true,
+  "stream_url": "https://n10as.radiocult.fm/stream",
+  "stream_name": "RadioCult.fm",
+  "jwt_secret": "your-secret-key-change-this-in-production-use-at-least-32-characters",
+  "jwt_algorithm": "HS256",
+  "jwt_expiration_days": 7
+}
+

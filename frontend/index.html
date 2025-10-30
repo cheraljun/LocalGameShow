@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalGame</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <!-- 第一行：Doge + 播放器 + 书籍滚动条 -->
+    <div class="top-row">
+        <!-- Doge 和播放器 -->
+        <div class="player-section">
+            <div class="doge-container" id="doge-announcement-trigger" title="点击查看公告">
+                <img src="/images/doge.gif" alt="Doge" class="doge-gif">
+            </div>
+            <div class="player-controls">
+                <button id="play-btn" class="player-btn" title="播放">
+                    <img src="/images/play.png" alt="播放">
+                </button>
+                <button id="pause-btn" class="player-btn" title="暂停" style="display: none;">
+                    <img src="/images/pause.png" alt="暂停">
+                </button>
+            </div>
+        </div>
+        
+        <!-- 书籍滚动条 -->
+        <div class="book-scroll-container">
+            <div class="book-scroll-content" id="book-scroll-content">
+                加载中...
+            </div>
+        </div>
+    </div>
+
+    <!-- 第二行：搜索框 + 导航按钮 + 用户按钮 -->
+    <div class="nav-row">
+        <!-- 搜索框 -->
+        <div class="nav-item">
+            <input type="text" id="search-input" class="search-input" placeholder="搜索...">
+        </div>
+        
+        <!-- 通告 -->
+        <button class="nav-item nav-btn" data-nav="announcement" title="通告">
+            <img src="/images/nav-announcement.png" alt="通告" class="nav-icon">
+        </button>
+        
+        <!-- 游戏 -->
+        <button class="nav-item nav-btn" data-nav="game" title="游戏">
+            <img src="/images/nav-game.gif" alt="游戏" class="nav-icon">
+        </button>
+        
+        <!-- 留言 -->
+        <button class="nav-item nav-btn" data-nav="chat" title="留言">
+            <img src="/images/nav-chat.png" alt="留言" class="nav-icon">
+        </button>
+        
+        <!-- 用户（登录/注册） -->
+        <div class="nav-item user-nav" id="user-nav">
+            <a href="#" id="login-link">登录</a>
+        </div>
+    </div>
+    
+    <!-- 音频播放器（隐藏，由JS动态设置stream） -->
+    <audio id="radio-player" preload="none">
+        <!-- Stream URL will be set dynamically by JavaScript -->
+    </audio>
+
+    <!-- 主内容区域 -->
+    <div class="main-area">
+        <!-- 内容展示区 -->
+        <div id="main-content-area" style="display: none;">
+            <!-- MainContentArea 组件将在这里渲染内容 -->
+        </div>
+
+        <!-- 搜索结果区域 -->
+        <div id="search-results-container" style="display: none;">
+            <!-- 搜索结果将在这里显示 -->
+        </div>
+    </div>
+
+    <!-- 引入主脚本 -->
+    <script type="module" src="/js/main.js"></script>
+    
+    <!-- 引入图片灯箱组件 -->
+    <script type="module" src="/js/components/ImageLightbox.js"></script>
+
+    <!-- 书籍滚动条加载脚本 -->
+    <script>
+        async function loadBookContent() {
+            console.log('开始加载书籍内容...');
+            const bookScrollContent = document.getElementById('book-scroll-content');
+            console.log('找到元素:', bookScrollContent);
+            
+            try {
+                console.log('发起请求: /api/book/content');
+                const response = await fetch('/api/book/content');
+                console.log('响应状态:', response.status);
+                
+                const data = await response.json();
+                console.log('返回数据:', data);
+                console.log('内容长度:', data.content ? data.content.length : 0);
+                console.log('总行数:', data.total_lines);
+                
+                if (data.content) {
+                    bookScrollContent.textContent = data.content + ' ◆◆◆ ';
+                    bookScrollContent.classList.add('scrolling');
+                    console.log('书籍内容已设置，前100字符:', data.content.substring(0, 100));
+                    console.log('元素类名:', bookScrollContent.className);
+                    console.log('元素文本长度:', bookScrollContent.textContent.length);
+                } else {
+                    bookScrollContent.textContent = '暂无内容';
+                    console.warn('书籍内容为空');
+                }
+            } catch (error) {
+                console.error('加载书籍失败:', error);
+                bookScrollContent.textContent = '加载失败';
+            }
+        }
+        
+        loadBookContent();
+    </script>
+    
+    <!-- 导航和搜索逻辑 -->
+    <script type="module">
+        import { initNavIcons } from '/js/utils/navIconLoader.js';
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 初始化导航图标（支持GIF和PNG）
+            await initNavIcons();
+            
+            // 导航按钮点击事件
+            const navButtons = document.querySelectorAll('[data-nav]');
+            navButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const type = btn.getAttribute('data-nav');
+                    
+                    // 清空搜索框和搜索结果
+                    const searchInput = document.getElementById('search-input');
+                    if (searchInput) searchInput.value = '';
+                    const searchResults = document.getElementById('search-results-container');
+                    if (searchResults) searchResults.style.display = 'none';
+                    
+                    // 调用全局app方法
+                    if (window.app) {
+                        if (type === 'chat') {
+                            window.app.showChat();
+                        } else {
+                            window.app.showList(type);
+                        }
+                    }
+                });
+            });
+
+            // 搜索功能（实时搜索，防抖）
+            const searchInput = document.getElementById('search-input');
+            const searchResultsContainer = document.getElementById('search-results-container');
+            const mainContentArea = document.getElementById('main-content-area');
+            
+            let searchTimeout = null;
+            let currentKeyword = '';
+
+            searchInput.addEventListener('input', () => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(performSearch, 300);
+            });
+
+            async function performSearch() {
+                const keyword = searchInput.value.trim();
+                currentKeyword = keyword;
+                
+                if (!keyword) {
+                    searchResultsContainer.style.display = 'none';
+                    return;
+                }
+
+                // 隐藏主内容区，显示搜索结果
+                mainContentArea.style.display = 'none';
+                searchResultsContainer.style.display = 'block';
+                searchResultsContainer.innerHTML = '<div class="loading-state">搜索中...</div>';
+
+                try {
+                    const response = await fetch(`/api/search?q=${encodeURIComponent(keyword)}`);
+                    const results = await response.json();
+                    
+                    if (keyword === currentKeyword) {
+                        renderSearchResults(results, keyword);
+                    }
+                } catch (error) {
+                    console.error('搜索失败:', error);
+                    searchResultsContainer.innerHTML = '<div class="error-state">搜索失败</div>';
+                }
+            }
+
+            function renderSearchResults(results, keyword) {
+                const games = results.games || [];
+                const total = results.total || 0;
+                
+                if (total === 0) {
+                    searchResultsContainer.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-text">没有找到匹配 "${escapeHtml(keyword)}" 的游戏</div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let html = `
+                    <div class="search-results">
+                        <div class="search-header">
+                            <h2 class="search-title">搜索: ${escapeHtml(keyword)}</h2>
+                            <div class="search-count">找到 <strong>${total}</strong> 个游戏</div>
+                        </div>
+                        <div class="game-grid">
+                `;
+
+                games.forEach(game => {
+                    html += `
+                        <div class="game-card" onclick="window.open('${game.game_file}', '_blank')">
+                            <div class="game-thumbnail">
+                                <img src="${game.thumbnail}" alt="${escapeHtml(game.title)}">
+                            </div>
+                            <div class="game-info">
+                                <div class="game-title">${highlightKeyword(escapeHtml(game.title), keyword)}</div>
+                                <div class="game-author">${escapeHtml(game.author_name)}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += '</div></div>';
+                searchResultsContainer.innerHTML = html;
+            }
+
+
+
+            function highlightKeyword(text, keyword) {
+                const regex = new RegExp(`(${escapeRegex(keyword)})`, 'gi');
+                return text.replace(regex, '<mark class="highlight">$1</mark>');
+            }
+
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            function escapeRegex(str) {
+                return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            }
+
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('zh-CN');
+            }
+
+            // 搜索结果点击跳转
+            searchResultsContainer.addEventListener('click', (e) => {
+                const searchItem = e.target.closest('.search-item');
+                if (searchItem) {
+                    const type = searchItem.getAttribute('data-search-type');
+                    const id = searchItem.getAttribute('data-search-id');
+                    
+                    if (type && id && window.app) {
+                        // 清空搜索框
+                        searchInput.value = '';
+                        // 隐藏搜索结果
+                        searchResultsContainer.style.display = 'none';
+                        // 跳转到详情页
+                        window.app.showDetail(type, id);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
